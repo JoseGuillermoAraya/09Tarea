@@ -5,9 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import (leastsq, curve_fit)
 import pdb
-
 ''' Script que deriva la constante de Hubble incluyendo su intervalo de
-co nfianza al 95 "%" a partir de los datos en data/hubble_original.dat '''
+co nfianza al 95 "%" a partir de los datos en data/SNIa.dat '''
 
 
 def mostrar_datos(distancia, vel, H1, H2, H_prom):
@@ -21,7 +20,7 @@ def mostrar_datos(distancia, vel, H1, H2, H_prom):
     fig.set_xlabel("Distancia [Mpc]")
     fig.set_ylabel("Velocidad [Km/s]")
     plt.legend(loc=2)
-    plt.savefig("hubble_1.jpg")
+    plt.savefig("hubble_2.jpg")
     plt.show()
 
 
@@ -68,7 +67,7 @@ def bootstrap(data, H_0):
     ax2.set_title("Simulacion de bootstrap")
     ax2.set_xlabel("H [Km/s /Mpc]")
     ax2.set_ylabel("frecuencia")
-    plt.savefig("bootstrap_1.jpg")
+    plt.savefig("bootstrap_2.jpg")
     H = np.sort(H)
     limite_bajo = H[int(N_boot * 0.025)]
     limite_alto = H[int(N_boot * 0.975)]
@@ -76,7 +75,7 @@ def bootstrap(data, H_0):
 
 
 # Main
-data = np.loadtxt("data/hubble_original.dat")
+data = np.loadtxt("data/SNIa.dat", usecols=(1,2))
 distancia = data[:, 0]
 vel = data[:, 1]
 
