@@ -11,10 +11,11 @@ co nfianza al 95 "%" a partir de los datos en data/hubble_original.dat '''
 
 def mostrar_datos(distancia, vel):
     ax, fig = plt.subplots()
-    plt.scatter(distancia, vel)
+    plt.scatter(distancia, vel, label="Datos originales")
     fig.set_title("Datos originales y ajuste lineal")
     fig.set_xlabel("Distancia [Mpc]")
     fig.set_ylabel("Velocidad [Km/s]")
+    plt.legend(loc=2)
     plt.show()
 
 # Main
