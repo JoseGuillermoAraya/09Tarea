@@ -10,12 +10,13 @@ co nfianza al 95 "%" a partir de los datos en data/DR9Q.dat '''
 
 
 def mostrar_datos(banda_i, error_i, banda_z, error_z, c):
-    '''grafica los datos'''
+    '''grafica los datos originales con sus errores asociados,
+    grafica el ajuste lineal polyfit'''
     ax, fig = plt.subplots()
     fig.errorbar(banda_i, banda_z, xerr=error_i, yerr=error_z, fmt="o",
                  label="Datos originales y ajuste lineal")
     x = np.linspace(-100, 500, 600)
-    fig.plot(x,c[1] + x*c[0], color="r", label="ajuste lineal")
+    fig.plot(x, c[1] + x*c[0], color="r", label="ajuste lineal")
     fig.set_title("Datos originales")
     fig.set_xlabel("Flujo banda i [$10^{-6}Jy$]")
     fig.set_ylabel("Flujo banda z [$10^{-6}Jy$]")
@@ -24,10 +25,17 @@ def mostrar_datos(banda_i, error_i, banda_z, error_z, c):
     plt.show()
 
 
+def mc(banda_i, error_i, banda_z, error_z):
+    '''realiza una simulación de montecarlo para obtener el intervalo de
+    confianza del 95%'''
+
+
 data = np.loadtxt("data/DR9Q.dat", usecols=(80, 81, 82, 83))
-banda_i = data[:, 0] *  3.631
-error_i = data[:, 1] *  3.631
-banda_z = data[:, 2] *  3.631
-error_z = data[:, 3] *  3.631
+banda_i = data[:, 0] * 3.631
+error_i = data[:, 1] * 3.631
+banda_z = data[:, 2] * 3.631
+error_z = data[:, 3] * 3.631
 c = np.polyfit(banda_i, banda_z, 1)
+print(c)
 mostrar_datos(banda_i, error_i, banda_z, error_z, c)
+intervalo_confianza = mc(banda_i, error_i, banda_z, error_z)
