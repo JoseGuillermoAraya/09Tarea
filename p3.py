@@ -9,11 +9,13 @@ import pdb
 co nfianza al 95 "%" a partir de los datos en data/DR9Q.dat '''
 
 
-def mostrar_datos(banda_i, error_i, banda_z, error_z):
+def mostrar_datos(banda_i, error_i, banda_z, error_z, c):
     '''grafica los datos'''
     ax, fig = plt.subplots()
-    plt.errorbar(banda_i, banda_z, xerr=error_i, yerr=error_z, fmt="o",
-                 label="Datos originales")
+    fig.errorbar(banda_i, banda_z, xerr=error_i, yerr=error_z, fmt="o",
+                 label="Datos originales y ajuste lineal")
+    x = np.linspace(-100, 500, 600)
+    fig.plot(x,c[1] + x*c[0], color="r", label="ajuste lineal")
     fig.set_title("Datos originales")
     fig.set_xlabel("Flujo banda i [$10^{-6}Jy$]")
     fig.set_ylabel("Flujo banda z [$10^{-6}Jy$]")
@@ -27,4 +29,5 @@ banda_i = data[:, 0] *  3.631
 error_i = data[:, 1] *  3.631
 banda_z = data[:, 2] *  3.631
 error_z = data[:, 3] *  3.631
-mostrar_datos(banda_i, error_i, banda_z, error_z)
+c = np.polyfit(banda_i, banda_z, 1)
+mostrar_datos(banda_i, error_i, banda_z, error_z, c)
