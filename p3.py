@@ -25,9 +25,29 @@ def mostrar_datos(banda_i, error_i, banda_z, error_z, c):
     plt.show()
 
 
-def mc(banda_i, error_i, banda_z, error_z):
+def mc(banda_i, error_i, banda_z, error_z, c_0):
     '''realiza una simulación de montecarlo para obtener el intervalo de
     confianza del 95%'''
+    Nmc = 10000
+    cte = np.zeros(Nmc)
+    pendiente = np.zeros(Nmc)
+    for j in range(Nmc):
+        r = np.random.normal(0, 1, size=len(banda_i))
+        muestra_i = banda_i + error_i * r
+        muestra_z = banda_z + error_z * r
+        pendiente[j], cte[j] = np.polyfit(muestra_i, muestra_z, 1)
+    ax2, fig2 = plt.subplots()
+    fig2.hist(pendiente, bins=30)
+    fig2.axvline(c[0], color='r')
+    fig2.set_title("Simulacion de Montecarlo")
+    fig2.set_xlabel("pendiente [adimensional]")
+    fig2.set_ylabel("frecuencia")
+    plt.savefig("mc.jpg")
+    pendiente = np.sort(pendiente)
+    limite_bajo_1 = pendiente[int(Nmc * 0.025)]
+    limite_alto_1 = pendiente[int(Nmc * 0.975)]
+    print "El intervalo de confianza al 95% es: [{}:{}]".format(limite_bajo_1,
+                                                                limite_alto_1)
 
 
 data = np.loadtxt("data/DR9Q.dat", usecols=(80, 81, 82, 83))
@@ -38,4 +58,4 @@ error_z = data[:, 3] * 3.631
 c = np.polyfit(banda_i, banda_z, 1)
 print(c)
 mostrar_datos(banda_i, error_i, banda_z, error_z, c)
-intervalo_confianza = mc(banda_i, error_i, banda_z, error_z)
+intervalo_confianza = mc(banda_i, error_i, banda_z, error_z, c)
