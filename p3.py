@@ -22,7 +22,6 @@ def mostrar_datos(banda_i, error_i, banda_z, error_z, c):
     fig.set_ylabel("Flujo banda z [$10^{-6}Jy$]")
     plt.legend(loc=2)
     plt.savefig("bandas.jpg")
-    plt.show()
 
 
 def mc(banda_i, error_i, banda_z, error_z, c_0):
@@ -39,15 +38,32 @@ def mc(banda_i, error_i, banda_z, error_z, c_0):
     ax2, fig2 = plt.subplots()
     fig2.hist(pendiente, bins=30)
     fig2.axvline(c[0], color='r')
-    fig2.set_title("Simulacion de Montecarlo")
+    fig2.set_title("Simulacion de Montecarlo (pendientes)")
     fig2.set_xlabel("pendiente [adimensional]")
     fig2.set_ylabel("frecuencia")
     plt.savefig("mc.jpg")
+
+    ax3, fig3 = plt.subplots()
+    fig3.hist(pendiente, bins=30)
+    fig3.axvline(c[0], color='r')
+    fig3.set_title("Simulacion de Montecarlo (coef de posicion)")
+    fig3.set_xlabel("coef de posicion [adimensional]")
+    fig3.set_ylabel("frecuencia")
+    plt.show()
+    plt.savefig("mc_2.jpg")
+
     pendiente = np.sort(pendiente)
+    cte = np.sort(cte)
     limite_bajo_1 = pendiente[int(Nmc * 0.025)]
     limite_alto_1 = pendiente[int(Nmc * 0.975)]
-    print "El intervalo de confianza al 95% es: [{}:{}]".format(limite_bajo_1,
-                                                                limite_alto_1)
+    limite_bajo_2 = cte[int(Nmc * 0.025)]
+    limite_alto_2 = cte[int(Nmc * 0.975)]
+    print """El intervalo de confianza al
+             95% para la pendiente es: [{}:{}]""".format(limite_bajo_1,
+                                                         limite_alto_1)
+    print """El intervalo de confianza al
+             95% para el coef de posicion es: [{}:{}]""".format(limite_bajo_2,
+                                                                limite_alto_2)
 
 
 data = np.loadtxt("data/DR9Q.dat", usecols=(80, 81, 82, 83))
