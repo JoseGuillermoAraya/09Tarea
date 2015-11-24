@@ -52,8 +52,8 @@ def bootstrap(data, H_0):
     for i in range(N_boot):
         s = np.random.randint(low=0, high=N, size=N)
         fake_data = data[s][s]
-        distancia = fake_data[:, 0]
-        vel = fake_data[:, 1]
+        vel = fake_data[:, 0]
+        distancia = fake_data[:, 1]
         a_optimo_1, a_covarianza_1 = curve_fit(func_a_minimizar_1,
                                                distancia, vel, 2)
         a_optimo_2, a_covarianza_2 = curve_fit(func_a_minimizar_2,
@@ -77,8 +77,8 @@ def bootstrap(data, H_0):
 
 # Main
 data = np.loadtxt("data/SNIa.dat", usecols=(1, 2))
-distancia = data[:, 0]
-vel = data[:, 1]
+vel = data[:, 0]
+distancia = data[:, 1]
 
 a_optimo_1, a_covarianza_1 = curve_fit(func_a_minimizar_1,
                                        distancia, vel, 2)
