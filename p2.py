@@ -62,7 +62,8 @@ def bootstrap(data, H_0):
         H[i] = a_prom
     fig2, ax2 = plt.subplots()
     plt.hist(H, bins=30)
-    plt.axvline(H_0, color='r')
+    plt.axvline(H_0, color='r', label="valor obtenido")
+    plt.legend(loc=2)
     ax2.set_title("Simulacion de bootstrap")
     ax2.set_xlabel("H [Km/s /Mpc]")
     ax2.set_ylabel("frecuencia")
@@ -85,6 +86,7 @@ a_optimo_2, a_covarianza_2 = curve_fit(func_a_minimizar_2,
                                        vel, distancia, 2)
 a_prom = (a_optimo_2 + a_optimo_1) / 2
 H_0 = a_prom
+print("H_0 = {}".format(H_0))
 mostrar_datos(distancia, vel, a_optimo_1, a_optimo_2, a_prom)
 
 intervalo_confianza = bootstrap(data, H_0)
