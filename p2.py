@@ -21,7 +21,6 @@ def mostrar_datos(distancia, vel, H1, H2, H_prom):
     fig.set_ylabel("Velocidad [Km/s]")
     plt.legend(loc=2)
     plt.savefig("hubble_2.jpg")
-    plt.show()
 
 
 def f_modelo_1(params, x):
@@ -89,3 +88,4 @@ H_0 = a_prom
 mostrar_datos(distancia, vel, a_optimo_1, a_optimo_2, a_prom)
 
 intervalo_confianza = bootstrap(data, H_0)
+plt.show()

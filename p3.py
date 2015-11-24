@@ -47,8 +47,8 @@ def mc(banda_i, error_i, banda_z, error_z, c_0):
 
     fig3 = plt.figure()
     ax3 = fig3.add_subplot(111)
-    ax3.hist(pendiente, bins=30)
-    ax3.axvline(c[0], color='r')
+    ax3.hist(cte, bins=30)
+    ax3.axvline(c[1], color='r')
     ax3.set_title("Simulacion de Montecarlo (coef de posicion)")
     ax3.set_xlabel("coef de posicion [adimensional]")
     ax3.set_ylabel("frecuencia")
