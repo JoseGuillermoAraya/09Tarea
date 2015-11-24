@@ -24,7 +24,6 @@ def mostrar_datos(distancia, vel, H1, H2, H_prom):
     plt.savefig("hubble_1.jpg")
 
 
-
 def f_modelo_1(params, x):
     H = params
     return H * x

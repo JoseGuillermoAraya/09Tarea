@@ -39,7 +39,8 @@ def mc(banda_i, error_i, banda_z, error_z, c_0):
     fig2 = plt.figure()
     ax2 = fig2.add_subplot(111)
     ax2.hist(pendiente, bins=30)
-    ax2.axvline(c[0], color='r')
+    ax2.axvline(c[0], color='r', label="valor obtenido")
+    plt.legend(loc=2)
     ax2.set_title("Simulacion de Montecarlo (pendientes)")
     ax2.set_xlabel("pendiente [adimensional]")
     ax2.set_ylabel("frecuencia")
@@ -48,7 +49,8 @@ def mc(banda_i, error_i, banda_z, error_z, c_0):
     fig3 = plt.figure()
     ax3 = fig3.add_subplot(111)
     ax3.hist(cte, bins=30)
-    ax3.axvline(c[1], color='r')
+    ax3.axvline(c[1], color='r', label="valor obtenido")
+    plt.legend(loc=2)
     ax3.set_title("Simulacion de Montecarlo (coef de posicion)")
     ax3.set_xlabel("coef de posicion [adimensional]")
     ax3.set_ylabel("frecuencia")
@@ -74,7 +76,7 @@ error_i = data[:, 1] * 3.631
 banda_z = data[:, 2] * 3.631
 error_z = data[:, 3] * 3.631
 c = np.polyfit(banda_i, banda_z, 1)
-print("recta : {}x + {}".format(c[0],c[1]))
+print("recta : {}x + {}".format(c[0], c[1]))
 intervalo_confianza = mc(banda_i, error_i, banda_z, error_z, c)
 mostrar_datos(banda_i, error_i, banda_z, error_z, c)
 plt.show()
